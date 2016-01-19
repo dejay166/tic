@@ -1,0 +1,152 @@
+﻿@model IEnumerable<ContactManager.Models.Contact>
+@{
+    ViewBag.Title = "Home";
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/knockout")
+    <script type="text/javascript">
+        @functions{
+           public string TokenHeaderValue()
+           {
+              string cookieToken, formToken;
+              AntiForgery.GetTokens(null, out cookieToken, out formToken);
+              return cookieToken + ":" + formToken;
+           }
+        }
+
+        function ContactsViewModel() {
+            var self = this;
+            self.contacts = ko.observableArray([]);
+            self.levelOne = ko.observable();
+            self.levelTwo = ko.observable();
+            self.levelThree = ko.observable();
+            self.idea = ko.observable();
+            self.searchCriteria = ko.observable();
+            self.addContact = function () {
+                //Send to Database
+                $.ajax({
+                    type: "post",
+                    url: "http://testcontactmanagerapp.azurewebsites.net/api/contacts",
+                    data: {
+                        TestType: self.levelOne().name, TestArea: self.levelTwo().name, TestFocus: self.levelThree().name,
+                        Idea: self.idea()
+                    },
+                    dataType: "json",
+                    success: function (value) {
+                        self.contacts.push(value);
+                    },
+                    headers: {
+                        'RequestVerificationToken': '@TokenHeaderValue()'
+                    }
+                });
+
+            }
+
+            //Delete from database
+            self.removeContact = function (contact) {
+                $.ajax({
+                    type: "DELETE",
+                    url: contact.Self,
+                    success: function () {
+                        self.contacts.remove(contact);
+                    },
+                    headers: {
+                        'RequestVerificationToken': '@TokenHeaderValue()'
+                    }
+
+                });
+            }
+
+            // Search Database Idea
+            self.searchTestIdea = function () {
+                self.contacts.removeAll();
+                $.getJSON("http://testcontactmanagerapp.azurewebsites.net/api/contacts", function (data)
+                {
+                    $.each(data, function (key, value) {
+                        if (value.Idea.indexOf(self.searchCriteria()) > -1) {
+                            self.contacts.push(value);
+                        }
+                    })
+                });
+            }
+
+            // Initial Load
+            $.getJSON("http://testcontactmanagerapp.azurewebsites.net/api/contacts", function (data) {
+                self.contacts(data);
+            });
+        }
+        ko.applyBindings(new ContactsViewModel());
+    </script>
+}
+}
+<head>
+    <script language="JavaScript" type="text/javascript"></script>
+    <script language="JavaScript" src="~/Scripts/knockout-3.4.0.js"></script>
+    <script language="JavaScript" src="~/Scripts/knockout-3.4.0.debug.js"></script>
+    <script language="JavaScript" src="~/Scripts/DropdownList.js"></script>
+    <link rel="stylesheet" href="~/Content/TIC.css" />
+</head>
+
+<form id="addContact" data-bind="submit: addContact" class="jumbotron">
+    <h2>Add Test Idea</h2>
+    <div>
+        <div>
+            <div>
+                <select data-bind="options: levelOneOptions,
+                                       optionsCaption: 'Test Type...',
+                                       optionsText: 'name',
+                                       value: levelOne"
+                        class="form-control" id="TestType" name="TestType"></select>
+            </div>
+            <div data-bind="with: levelOne">
+                <select data-bind="options: levelTwoOptions,
+                                       optionsCaption: 'Test Area...',
+                                       optionsText: 'name',
+                                       value: $parent.levelTwo"
+                        class="form-control" id="TestArea" name="TestArea"></select>
+            </div>
+            <div data-bind="with: levelTwo">
+                <select data-bind="options: levelThreeOptions,
+                                       optionsCaption: 'Test Focus...',
+                                       optionsText: 'name',
+                                       value: $parent.levelThree"
+                        class="form-control" id="TestFocus" name="TestFocus"></select>
+            </div>
+        </div>
+    </div>
+    <table>
+        <tr>
+            <td>
+                <textarea data-bind="value: idea" type="text" name="Idea" class="form-control"></textarea>
+            </td>
+        </tr>
+
+    </table>
+    <input type="submit" value="Add" class="btn-success" />
+</form>
+
+@*<form id="searchTestIdea" data-bind="submit: searchTestIdea" class="jumbotron">
+    <input data-bind="value: searchCriteria" class="form-control" />
+    <button class="btn-success">Search</button>
+</form>*@
+
+<body>
+    <table class="table table-striped">
+        <tr>
+            <th>Test Type</th>
+            <th>Test Area</th>
+            <th>Test Focus</th>
+            <th>Idea</th>
+            <th>Action</th>
+        </tr>
+        <tbody data-bind="foreach: contacts">
+            <tr class="TableRow">
+                <td data-bind="text: TestType" class="col-md-2"></td>
+                <td data-bind="text: $data.TestArea" class="col-md-2"></td>
+                <td data-bind="text: $data.TestFocus" class="col-md-2"></td>
+                <td data-bind="text: $data.Idea" class="col-md-4"></td>
+                <td><a data-bind="attr: { href: Self }, click: $root.removeContact" class="col-md-2">Remove</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>

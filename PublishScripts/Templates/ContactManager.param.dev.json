@@ -1,0 +1,32 @@
+{
+  "siteName": {
+    "value": "testcontactmanagerapp"
+  },
+  "hostingPlanName": {
+    "value": "testcontactmanagerapp"
+  },
+  "siteLocation": {
+    "value": "North Europe"
+  },
+  "sku": {
+    "value": "Free"
+  },
+  "workerSize": {
+    "value": "0"
+  },
+  "serverName": {
+    "value": "testcontactmanagerapp"
+  },
+  "serverLocation": {
+    "value": "North Europe"
+  },
+  "administratorLogin": {
+    "value": "dejay166"
+  },
+  "administratorLoginPassword": {
+    "value": "Dj140787"
+  },
+  "databaseName": {
+    "value": "testcontactmanagerapp_db"
+  }
+}
