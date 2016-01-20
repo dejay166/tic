@@ -46,7 +46,7 @@
             self.removeContact = function (contact) {
                 $.ajax({
                     type: "DELETE",
-                    url: contact.Self,
+                    url: "http://testcontactmanagerapp.azurewebsites.net/" + contact.Self,
                     success: function () {
                         self.contacts.remove(contact);
                     },
@@ -130,7 +130,7 @@
 </form>*@
 
 <body>
-    <table class="table table-striped">
+    <table class="table table-bordered">
         <tr>
             <th>Test Type</th>
             <th>Test Area</th>
