@@ -5,24 +5,37 @@ var levelOneOptions = [
         {
             "levelThreeOptions": [
                 {
-                    "name": "Test1"
+                    "name": "Input Fields"
                 },
                 {
-                    "name": "Test2"
+                    "name": "Learnability"
+                },
+                {
+                    "name": "Look and Feel"
+                },
+                {
+                    "name": "Navigation"
                 }
+
             ],
-            "name": "1948 Porsche 356-A Roadster"
+            "name": "User Interface"
         },
         {
             "levelThreeOptions": [
                 {
-                    "name": "Test7"
+                    "name": "Validation"
                 },
                 {
-                    "name": "Test8"
-                }
+                    "name": "Learnability"
+                },
+                {
+                    "name": "Memorability"
+                },
+                {
+                    "name": "Satisfaction"
+                },
             ],
-            "name": "something else"
+            "name": "Usability"
         }
       ],
       "name": "Functional"
@@ -32,26 +45,53 @@ var levelOneOptions = [
         {
             "levelThreeOptions": [
                 {
-                    "name": "Test3"
+                    "name": "Browser"
                 },
                 {
-                    "name": "Test4"
+                    "name": "Controls"
+                },
+                {
+                    "name": "Other System Software"
+                },
+                {
+                    "name": "Peripherals"
                 }
             ],
-            "name": "1936 Harley Davidson El Knucklehead"
+            "name": "Compatibility"
         },
         {
             "levelThreeOptions": [
                 {
-                    "name": "Test5"
+                    "name": "Authentication"
                 },
                 {
-                    "name": "Test6"
+                    "name": "Authorisation"
+                },
+                {
+                    "name": "Confidentiality"
+                },
+                {
+                    "name": "Database"
                 }
             ],
-            "name": "another thing"
+            "name": "Security"
+        },
+        {
+            "levelThreeOptions": [
+                {
+                    "name": "Soak"
+                },
+                {
+                    "name": "Spike"
+                },
+                {
+                    "name": "Stress"
+                }
+            ],
+            "name": "Performance"
         }
       ],
       "name": "Non-Functional"
+
   }
 ];

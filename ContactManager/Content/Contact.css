@@ -19,7 +19,7 @@ form input[type="text"] {
 #addContact {
     width: 300px;
     float: left;
-    width:30%;
+    width:100%;
 }
 #contacts {
     list-style-type: none;

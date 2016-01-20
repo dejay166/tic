@@ -91,37 +91,36 @@
     <h2>Add Test Idea</h2>
     <div>
         <div>
-            <div>
-                <select data-bind="options: levelOneOptions,
+            <table>
+                <tr>
+                    <td>
+                        <select data-bind="options: levelOneOptions,
                                        optionsCaption: 'Test Type...',
                                        optionsText: 'name',
                                        value: levelOne"
-                        class="form-control" id="TestType" name="TestType"></select>
-            </div>
-            <div data-bind="with: levelOne">
-                <select data-bind="options: levelTwoOptions,
+                                class="form-control" id="TestType" name="TestType"></select>
+                    </td>
+                    <td data-bind="with: levelOne">
+                        <select data-bind="options: levelTwoOptions,
                                        optionsCaption: 'Test Area...',
                                        optionsText: 'name',
                                        value: $parent.levelTwo"
-                        class="form-control" id="TestArea" name="TestArea"></select>
-            </div>
-            <div data-bind="with: levelTwo">
-                <select data-bind="options: levelThreeOptions,
+                                class="form-control" id="TestArea" name="TestArea"></select>
+                    </td>
+                    <td data-bind="with: levelTwo">
+                        <select data-bind="options: levelThreeOptions,
                                        optionsCaption: 'Test Focus...',
                                        optionsText: 'name',
                                        value: $parent.levelThree"
-                        class="form-control" id="TestFocus" name="TestFocus"></select>
-            </div>
+                                class="form-control" id="TestFocus" name="TestFocus"></select>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
-    <table>
-        <tr>
-            <td>
-                <textarea data-bind="value: idea" type="text" name="Idea" class="form-control"></textarea>
-            </td>
-        </tr>
-
-    </table>
+            <div>
+                <textarea data-bind="value: idea" type="text" name="Idea" class="form-control" maxlength="140" placeholder="Idea"></textarea>
+            </div>
     <input type="submit" value="Add" class="btn-success" />
 </form>
 
