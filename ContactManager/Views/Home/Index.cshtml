@@ -69,6 +69,42 @@
                     })
                 });
             }
+
+            // search test Type
+            self.searchTestType = function () {
+                self.contacts.removeAll();
+                $.getJSON("api/contacts", function (data) {
+                    $.each(data, function (key, value) {
+                        if (value.TestType == self.levelOne().name) {
+                            self.contacts.push(value);
+                        }
+                    })
+                });
+            }
+
+            // search test Area
+            self.searchTestArea = function () {
+                self.contacts.removeAll();
+                $.getJSON("api/contacts", function (data) {
+                    $.each(data, function (key, value) {
+                        if (value.TestArea == self.levelTwo().name) {
+                            self.contacts.push(value);
+                        }
+                    })
+                });
+            }
+
+            // search test Focus
+            self.searchTestFocus = function () {
+                self.contacts.removeAll();
+                $.getJSON("api/contacts", function (data) {
+                    $.each(data, function (key, value) {
+                        if (value.TestFocus == self.levelThree().name) {
+                            self.contacts.push(value);
+                        }
+                    })
+                });
+            }
         }
         ko.applyBindings(new ContactsViewModel());
     </script>
@@ -82,49 +118,59 @@
     <link rel="stylesheet" href="~/Content/TIC.css" />
 </head>
 
-@*<form id="addContact" data-bind="submit: addContact" class="jumbotron">
+<div class="jumbotron">
     <h2>Add Test Idea</h2>
     <div>
-        <div>
-            <div>
-                <select data-bind="options: levelOneOptions,
+        <table>
+            <tr>
+                <td>
+                    <form data-bind="submit: searchTestType">
+                        <select data-bind="options: levelOneOptions,
                                        optionsCaption: 'Test Type...',
                                        optionsText: 'name',
                                        value: levelOne"
-                        class="form-control" id="TestType" name="TestType"></select>
-            </div>
-            <div data-bind="with: levelOne">
-                <select data-bind="options: levelTwoOptions,
+                                class="form-control" id="TestType" name="TestType" "></select>
+
+                        <button class="btn btn-success">Search</button>
+                    </form>
+                </td>
+                <td>
+                    <form data-bind="submit: searchTestArea">
+                        <div data-bind="with: levelOne">
+                            <select data-bind="options: levelTwoOptions,
                                        optionsCaption: 'Test Area...',
                                        optionsText: 'name',
                                        value: $parent.levelTwo"
-                        class="form-control" id="TestArea" name="TestArea"></select>
-            </div>
-            <div data-bind="with: levelTwo">
-                <select data-bind="options: levelThreeOptions,
+                                    class="form-control" id="TestArea" name="TestArea"></select>
+
+                            <button class="btn btn-success">Search</button>
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <form data-bind="submit: searchTestFocus">
+                        <div data-bind="with: levelTwo">
+                            <select data-bind="options: levelThreeOptions,
                                        optionsCaption: 'Test Focus...',
                                        optionsText: 'name',
                                        value: $parent.levelThree"
-                        class="form-control" id="TestFocus" name="TestFocus"></select>
-            </div>
-        </div>
-    </div>
-    <table>
-        <tr>
-            <td>
-                <textarea data-bind="value: idea" type="text" name="Idea" class="form-control"></textarea>
-            </td>
-        </tr>
+                                    class="form-control" id="TestFocus" name="TestFocus"></select>
 
-    </table>
-    <input type="submit" value="Add" class="btn-success" />
-</form>*@
+                            <button class="btn btn-success">Search</button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
 
 
 <form id="searchTestIdea" data-bind="submit: searchTestIdea" class="jumbotron">
     <h2>Search Test Idea</h2>
     <input data-bind="value: searchCriteria" class="form-control"/>
-    <button class="btn-success">Search</button>
+    <button class="btn btn-success">Search</button>
 </form>
 
 <body>
